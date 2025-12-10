@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.metacoding.spring_elasticsearch.device.DeviceDocument;
+import com.metacoding.spring_elasticsearch.device.DeviceEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +40,7 @@ public class ElasticSearchSearchController {
      * - Elasticsearch에 full-text 검색 수행
      */
     @GetMapping("/search")
-    public List<Object> search(@RequestParam("keyword") String keyword) {
+    public List<DeviceEntity> search(@RequestParam("keyword") String keyword) {
         System.out.println(keyword + " :Aaaa"); // 로그
         return elasticSearchService.searchAll(keyword);
     }

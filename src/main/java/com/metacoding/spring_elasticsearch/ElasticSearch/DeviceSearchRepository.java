@@ -1,4 +1,4 @@
-package com.metacoding.spring_elasticsearch.device;
+package com.metacoding.spring_elasticsearch.ElasticSearch;
 
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
@@ -13,5 +13,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  * save(), findById(), search(), delete() 등을 제공한다.
  */
 public interface DeviceSearchRepository
-                extends ElasticsearchRepository<DeviceDocument, Long> {
+        extends ElasticsearchRepository<DeviceDocument, Long> {
 }

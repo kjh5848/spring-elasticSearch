@@ -8,10 +8,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.metacoding.spring_elasticsearch.device.DeviceDocument;
 import com.metacoding.spring_elasticsearch.device.DeviceEntity;
 import com.metacoding.spring_elasticsearch.device.DeviceJpaRepository;
-import com.metacoding.spring_elasticsearch.device.DeviceSearchRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,7 +38,7 @@ public class ElasticSearchService {
          * keyword 입력 → Analyzer로 토큰화 → Query DSL 생성 → 역색인(Inverted Index) 검색 →
          * BM25 점수 계산 → 최종 결과 반환
          */
-        public List<Object> searchAll(String keyword) {
+        public List<DeviceEntity> searchAll(String keyword) {
 
                 NativeQuery query = NativeQuery.builder()
                                 .withQuery(q -> q
@@ -74,8 +72,6 @@ public class ElasticSearchService {
                                                                 .minimumShouldMatch("1")))
                                 .build();
 
-                List<Object> results = new ArrayList<>();
-
                 /**
                  * 검색 실행.
                  *
@@ -86,14 +82,11 @@ public class ElasticSearchService {
                  */
                 var deviceHits = operations.search(query, DeviceDocument.class);
 
-                /**
-                 * 검색 결과에서 실제 문서 내용(_source)을 꺼내 result 리스트에 추가.
-                 * SearchHit 객체에는 score, id, highlight 등 여러 정보가 들어있지만,
-                 * 여기서는 content만 사용한다.
-                 */
-                deviceHits.forEach(hit -> results.add(hit.getContent()));
+                List<Long> ids = deviceHits.stream()
+                                .map(hit -> hit.getContent().getId())
+                                .toList();
 
-                return results;
+                return deviceJpaRepository.findAllById(ids);
         }
 
         /**
