@@ -1,4 +1,4 @@
-package com.metacoding.spring_elasticsearch.ElasticSearch;
+package com.metacoding.spring_elasticsearch.device;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;

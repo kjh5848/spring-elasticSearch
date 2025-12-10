@@ -8,8 +8,10 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.metacoding.spring_elasticsearch.device.DeviceDocument;
 import com.metacoding.spring_elasticsearch.device.DeviceEntity;
 import com.metacoding.spring_elasticsearch.device.DeviceJpaRepository;
+import com.metacoding.spring_elasticsearch.device.DeviceSearchRepository;
 
 import lombok.RequiredArgsConstructor;
 
